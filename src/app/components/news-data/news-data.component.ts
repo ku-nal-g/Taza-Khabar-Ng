@@ -18,6 +18,8 @@ export class NewsDataComponent implements OnInit, OnDestroy {
   searchKeywordForApi!: string;
   filterText!: string;
 
+  date!: Date;
+
   constructor(private _newsData: NewsDataService, private _spinner: NgxSpinnerService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class NewsDataComponent implements OnInit, OnDestroy {
   fetchAllNews() {
     this._spinner.show();
     setTimeout(() => {
-      this.subscription$ = this._newsData.getAllNewsByCountry(this.countryName).subscribe(({
+      this.subscription$ = this._newsData.getAllNewsByCountry(this.countryName,).subscribe(({
         next: (res) => {
           this.newsList = res.articles;
           this._spinner.hide();
@@ -53,9 +55,11 @@ export class NewsDataComponent implements OnInit, OnDestroy {
   }
 
   fetchAllNewsByKewords() {
+    this.date = new Date();
+    const [dateStr] = this.date.toISOString().split("T");
     this._spinner.show();
     setTimeout(() => {
-      this.subscription$ = this._newsData.getAllNewsByKeyWord(this.searchKeywordForApi).subscribe(({
+      this.subscription$ = this._newsData.getAllNewsByKeyWord(this.searchKeywordForApi,dateStr).subscribe(({
         next: (res) => {
           this.newsListByKeyWord = res.articles;
           this._spinner.hide();

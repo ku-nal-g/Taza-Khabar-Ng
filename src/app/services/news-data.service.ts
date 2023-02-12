@@ -33,7 +33,7 @@ export class NewsDataService {
   getAllNewsByCountry(country: string): Observable<any> {
     return this.http.get<any>(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=29d570d2ae9146b89a7ace31691bc694`);
   }
-  getAllNewsByKeyWord(keyword: string): Observable<any> {
-    return this.http.get(`https://newsapi.org/v2/everything?q=${keyword}&from=2022-12-22&sortBy=popularity&apiKey=29d570d2ae9146b89a7ace31691bc694`);
+  getAllNewsByKeyWord(keyword: string, date: string): Observable<any> {
+    return this.http.get(`https://newsapi.org/v2/everything?q=${keyword}&from=${date}&sortBy=popularity&apiKey=29d570d2ae9146b89a7ace31691bc694`);
   }
 }
